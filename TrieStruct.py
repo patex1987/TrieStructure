@@ -29,6 +29,13 @@ class TrieNode(object):
                 word,
                 string_pos + 1)
 
+    def __insert_multiple_words__(self, words):
+        """
+        Inserting multiple words into the Trie
+        """
+        for word in words:
+            self.__insert__(word)
+
     def __find_char_pos_in_childs__(self, char):
         """
         Finds the position of the character in the list of childrens of
@@ -99,6 +106,12 @@ class Trie(object):
         """
         self.root.__insert__(word)
 
+    def insert_multiple_words(self, words):
+        """
+        Inserts the provided word into the trie structure
+        """
+        self.root.__insert_multiple_words__(words)
+
     def get_words(self):
         """
         Gets a list of all words stored in the Trie
@@ -113,10 +126,7 @@ class Trie(object):
 
 
 MY_TRIE = Trie()
-MY_TRIE.insert("0902")
-MY_TRIE.insert("0903")
-MY_TRIE.insert("0904")
-MY_TRIE.insert("085625")
-MY_TRIE.insert("8765625")
+NUMBERS = ["0412578440", "0412199803", "0468892011", "112", "15"]
+MY_TRIE.insert_multiple_words(NUMBERS)
 
 print MY_TRIE.get_words_with_prefix("0")
