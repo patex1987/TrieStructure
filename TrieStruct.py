@@ -33,6 +33,8 @@ class TrieNode(object):
         """
         Inserting multiple words into the Trie
         """
+        if not isinstance(words, (list, tuple)):
+            raise TypeError("Words should be a list or a tuple")
         for word in words:
             self.__insert__(word)
 
@@ -127,6 +129,6 @@ class Trie(object):
 
 MY_TRIE = Trie()
 NUMBERS = ["0412578440", "0412199803", "0468892011", "112", "15"]
-MY_TRIE.insert_multiple_words(NUMBERS)
+MY_TRIE.insert_multiple_words(1234)
 
-print MY_TRIE.get_words_with_prefix("0")
+print MY_TRIE.get_words()
