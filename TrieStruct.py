@@ -17,6 +17,8 @@ class TrieNode(object):
         """
         Inserts a word into the Trie structure
         """
+        if not isinstance(word, str):
+            raise TypeError("Words should be a list or a tuple")
         current_char = word[string_pos]
         if current_char not in self.__get_children_chars__():
             self.children.append(TrieNode(current_char))
@@ -125,10 +127,3 @@ class Trie(object):
         Gets a list of all words stored starting with the provided prefix
         """
         return self.root.__get_all_words_with_prefix__(prefix)
-
-
-MY_TRIE = Trie()
-NUMBERS = ["0412578440", "0412199803", "0468892011", "112", "15"]
-MY_TRIE.insert_multiple_words(1234)
-
-print MY_TRIE.get_words()
