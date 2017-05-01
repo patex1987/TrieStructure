@@ -196,7 +196,3 @@ class Trie(object):
         else:
             return None
 
-
-MY_TRIE = Trie()
-MY_TRIE.insert_multiple_words(MY_TRIE, ["1234", "1236", "1235", "11", "12"])
-print MY_TRIE.get_all_words()

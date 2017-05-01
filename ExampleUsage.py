@@ -21,12 +21,12 @@ def trie_usage():
                        "26736"]
     trie = TrieStruct.Trie()
     # Step nr.1
-    trie.insert_multiple_words(words_to_insert)
+    trie.insert_multiple_words(trie, words_to_insert)
     # Step nr.2
-    trie.insert("0903127")
-    trie.insert("0903458")
+    trie.insert_multiple_words(trie, ["0903127"])
+    trie.insert_multiple_words(trie, ["0903458"])
     # Step nr.3
-    for word_with_prefix in trie.get_words_with_prefix("090"):
+    for word_with_prefix in trie.get_all_words_with_prefix("090"):
         print word_with_prefix
 
 if __name__ == '__main__':
