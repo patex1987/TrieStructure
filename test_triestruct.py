@@ -44,3 +44,20 @@ def test_count_unique_nodes():
     assert trie.count_unique_nodes() == 6
     trie.insert_multiple_words(trie, ["234"])
     assert trie.count_unique_nodes() == 9
+
+
+def test_get_unique_nodes():
+    """
+    Test of the get_unique_nodes method
+    """
+    trie = TrieStruct.Trie()
+    trie.insert_multiple_words(trie, ["1234"])
+    assert len(trie.get_unique_nodes()) == 4
+    trie.insert_multiple_words(trie, ["1235"])
+    assert len(trie.get_unique_nodes()) == 5
+    trie.insert_multiple_words(trie, ["12345"])
+    assert len(trie.get_unique_nodes()) == 6
+    trie.insert_multiple_words(trie, ["234"])
+    assert len(trie.get_unique_nodes()) == 9
+    assert sorted(trie.get_unique_nodes()) == sorted(
+        ["1", "2", "3", "4", "5", "5", "2", "3", "4"])

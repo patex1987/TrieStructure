@@ -57,9 +57,13 @@ def trie_unique_nodes_count():
                        "12345"]
     trie = TrieStruct.Trie()
     trie.insert_multiple_words(trie, words_to_insert)
-    output = ("Number of unique nodes in the Trie: {0}"
+    output = ("\nNumber of unique nodes in the Trie: {0}"
               "\nThe following words are stored in the Trie: {1}".format(
                   trie.count_unique_nodes(), words_to_insert))
+    print output
+    output = ("\nHere is a list of unique elements in the Trie: {0}"
+              "\nThe following words are stored in the Trie: {1}".format(
+                  trie.get_unique_nodes(), words_to_insert))
     print output
 
 if __name__ == '__main__':
