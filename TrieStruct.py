@@ -3,18 +3,31 @@ My implementation of a Trie structure
 """
 
 
-class TrieNode(object):
+class Trie(object):
     """
     Trie structure class
     """
     def __init__(self, cur_char=None, is_word=False, word=None):
+        """
+        Constructor of the Trie class
+
+        Note:
+            Do not include the `self` parameter in the ``Args`` section.
+
+        Args:
+            cur_char (:obj:`str`): The character of the current node
+            is_word (bool, optional): A boolean determining if a node points
+                to a word
+            word (:obj:`str`): The word stored at the node
+
+        """
         self.cur_char = cur_char
         self.is_word = is_word
         self.children = []
         self.word = word
 
-    def __insert_multiple_words__(self, root_object, words, word_pos=0,
-                                  string_pos=0):
+    def insert_multiple_words(self, root_object, words, word_pos=0,
+                              string_pos=0):
         """
         Inserts a collection of words into the Trie
 
@@ -41,7 +54,7 @@ class TrieNode(object):
         word = words[word_pos]
         current_char = word[string_pos]
         if current_char not in self.__get_children_chars__():
-            self.children.append(TrieNode(current_char))
+            self.children.append(Trie(current_char))
         current_char_position = self.__find_char_pos_in_childs__(
             current_char)
         if string_pos + 1 == len(word):
@@ -49,13 +62,13 @@ class TrieNode(object):
             self.children[current_char_position].word = word
             if word_pos + 1 == len(words):
                 return
-            root_object.__insert_multiple_words__(
+            root_object.insert_multiple_words(
                 root_object,
                 words,
                 word_pos + 1,
                 0)
         else:
-            self.children[current_char_position].__insert_multiple_words__(
+            self.children[current_char_position].insert_multiple_words(
                 root_object,
                 words,
                 word_pos,
@@ -105,7 +118,7 @@ class TrieNode(object):
             children_chars.append(child.cur_char)
         return children_chars
 
-    def __get_all_words__(self):
+    def get_all_words(self):
         """
         Gets all the words stored in the Trie
 
@@ -126,10 +139,10 @@ class TrieNode(object):
         for child in self.children:
             if child.is_word:
                 words.append(child.word)
-            words += child.__get_all_words__()
+            words += child.get_all_words()
         return words
 
-    def __get_all_words_with_prefix__(self, prefix):
+    def get_all_words_with_prefix(self, prefix):
         """
         Gets all words starting with the given prefix
 
@@ -152,7 +165,7 @@ class TrieNode(object):
         prefix_node = self.__get_prefix_node__(prefix, 0)
         if prefix_node is None:
             return None
-        words = prefix_node.__get_all_words__()
+        words = prefix_node.get_all_words()
         return words
 
     def __get_prefix_node__(self, prefix, position):
@@ -184,34 +197,6 @@ class TrieNode(object):
             return None
 
 
-class Trie(object):
-    """
-    Trie implementation using lists to store the data
-    """
-    def __init__(self):
-        """
-        Constructor - creates the root node - a TrieNode object
-        """
-        self.root = TrieNode()
-
-    def insert_multiple_words(self, words):
-        """
-        Inserts the provided word into the trie structure
-        """
-        self.root.__insert_multiple_words__(self.root, words)
-
-    def get_words(self):
-        """
-        Gets a list of all words stored in the Trie
-        """
-        return self.root.__get_all_words__()
-
-    def get_words_with_prefix(self, prefix):
-        """
-        Gets a list of all words stored starting with the provided prefix
-        """
-        return self.root.__get_all_words_with_prefix__(prefix)
-
 MY_TRIE = Trie()
-MY_TRIE.insert_multiple_words(["1234", "1236", "1235", "11", "12"])
-print MY_TRIE.get_words()
+MY_TRIE.insert_multiple_words(MY_TRIE, ["1234", "1236", "1235", "11", "12"])
+print MY_TRIE.get_all_words()
