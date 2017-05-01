@@ -142,6 +142,29 @@ class Trie(object):
             words += child.get_all_words()
         return words
 
+    def count_unique_nodes(self):
+        """
+        Calculates the count of unique nodes in the Trie
+
+        Args:
+
+        Returns:
+            count (int):
+                Count of the unique nodes
+
+        Raises:
+
+        Todo:
+
+        Example:
+
+        """
+        count = 0
+        for child in self.children:
+            count += 1
+            count += child.count_unique_nodes()
+        return count
+
     def get_all_words_with_prefix(self, prefix):
         """
         Gets all words starting with the given prefix
@@ -195,4 +218,3 @@ class Trie(object):
                                                                   position + 1)
         else:
             return None
-

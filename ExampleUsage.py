@@ -26,8 +26,42 @@ def trie_usage():
     trie.insert_multiple_words(trie, ["0903127"])
     trie.insert_multiple_words(trie, ["0903458"])
     # Step nr.3
-    for word_with_prefix in trie.get_all_words_with_prefix("090"):
+    for word_with_prefix in trie.get_all_words_with_prefix("1234"):
         print word_with_prefix
+
+
+def trie_unique_nodes_count():
+    """
+    This function returns the count of unique nodes in the Trie
+
+    Example:
+        if we insert the following word in the Trie: "1234",
+        there will be 4 unique nodes in the Trie,
+        namely: "1", "2", "3", "4"
+        if we add two more words: "1235", "12345" (there will be 3
+        elemnts in the Trie: "1234", "1235", "12345"), there will
+        be only 6 unique elements: 1, 2, 3, 4, 5, 5. A simple draw
+        is representing it better:
+                1
+                |
+                2
+                |
+                3
+              /  \
+              4  5
+              |
+              5
+    """
+    words_to_insert = ["1234",
+                       "1235",
+                       "12345"]
+    trie = TrieStruct.Trie()
+    trie.insert_multiple_words(trie, words_to_insert)
+    output = ("Number of unique nodes in the Trie: {0}"
+              "\nThe following words are stored in the Trie: {1}".format(
+                  trie.count_unique_nodes(), words_to_insert))
+    print output
 
 if __name__ == '__main__':
     trie_usage()
+    trie_unique_nodes_count()

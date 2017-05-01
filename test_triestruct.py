@@ -29,3 +29,18 @@ def test_get_words_with_prefixes():
                                       "09026745362", "76453", "98763"])
     prefix_words = trie.get_all_words_with_prefix("0902123")
     assert len(prefix_words) == 2
+
+
+def test_count_unique_nodes():
+    """
+    Test of the count_unique_nodes method
+    """
+    trie = TrieStruct.Trie()
+    trie.insert_multiple_words(trie, ["1234"])
+    assert trie.count_unique_nodes() == 4
+    trie.insert_multiple_words(trie, ["1235"])
+    assert trie.count_unique_nodes() == 5
+    trie.insert_multiple_words(trie, ["12345"])
+    assert trie.count_unique_nodes() == 6
+    trie.insert_multiple_words(trie, ["234"])
+    assert trie.count_unique_nodes() == 9
