@@ -13,32 +13,49 @@ class TrieNode(object):
         self.children = []
         self.word = word
 
-    def __insert__(self, word, string_pos=0):
+    def __insert_multiple_words__(self, words, word_pos=0, string_pos=0):
         """
-        Inserts a word into the Trie structure
+        Inserts a collection of words into the Trie
+
+        Args:
+            words (:obj:`list` or :obj:'tuple' of :obj:`str`):
+                List or tuple of words
+            word_pos (int, Optional): position of the word in the
+                words collection
+            string_pos (int, Optional): position of the character
+                in the current word
+
+        Returns:
+            None: this method doesnt return any value
+
+        Raises:
+
+        Todo:
+
+        Example:
+
+
         """
-        if not isinstance(word, str):
-            raise TypeError("Words should be a list or a tuple")
+        word = words[word_pos]
         current_char = word[string_pos]
         if current_char not in self.__get_children_chars__():
             self.children.append(TrieNode(current_char))
-        current_char_position = self.__find_char_pos_in_childs__(current_char)
+            current_char_position = self.__find_char_pos_in_childs__(
+                current_char)
         if string_pos + 1 == len(word):
             self.children[current_char_position].is_word = True
             self.children[current_char_position].word = word
+            if word_pos + 1 == len(words):
+                return
+            self.children[current_char_position].__insert_multiple_words__(
+                words,
+                word_pos + 1,
+                0)
         else:
-            self.children[current_char_position].__insert__(
-                word,
+            self.children[current_char_position].__insert_multiple_words__(
+                words,
+                word_pos,
                 string_pos + 1)
-
-    def __insert_multiple_words__(self, words):
-        """
-        Inserting multiple words into the Trie
-        """
-        if not isinstance(words, (list, tuple)):
-            raise TypeError("Words should be a list or a tuple")
-        for word in words:
-            self.__insert__(word)
 
     def __find_char_pos_in_childs__(self, char):
         """
@@ -127,3 +144,7 @@ class Trie(object):
         Gets a list of all words stored starting with the provided prefix
         """
         return self.root.__get_all_words_with_prefix__(prefix)
+
+MY_TRIE = Trie()
+MY_TRIE.insert_multiple_words(["1234", "2345"])
+print MY_TRIE.get_words()
