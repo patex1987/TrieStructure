@@ -5,7 +5,7 @@ My implementation of a Trie structure
 
 class TrieNode(object):
     """
-    The basic node for the Trie
+    Trie structure class
     """
     def __init__(self, cur_char=None, is_word=False, word=None):
         self.cur_char = cur_char
@@ -32,6 +32,8 @@ class TrieNode(object):
         Raises:
 
         Todo:
+            sending the root_object in the argument is a kind of forced
+            solution
 
         Example:
 
@@ -63,6 +65,19 @@ class TrieNode(object):
         """
         Finds the position of the character in the list of childrens of
         the current Node
+
+        Args:
+            char (:obj:`str`): the character to find
+
+        Returns:
+            index (int): The position of the character
+
+        Raises:
+
+        Todo:
+
+        Example:
+
         """
         for index, child in enumerate(self.children):
             if child.cur_char == char:
@@ -71,6 +86,19 @@ class TrieNode(object):
     def __get_children_chars__(self):
         """
         Gets the list of all childrens of the current Node
+
+        Args:
+
+        Returns:
+            children_chars (:obj:`list` of :obj:'str'):
+                list child nodes
+
+        Raises:
+
+        Todo:
+
+        Example:
+
         """
         children_chars = list()
         for child in self.children:
@@ -80,6 +108,19 @@ class TrieNode(object):
     def __get_all_words__(self):
         """
         Gets all the words stored in the Trie
+
+        Args:
+
+        Returns:
+            words (:obj:`list` of :obj:'str'):
+                list of words stored in the Trie (starting from the given node)
+
+        Raises:
+
+        Todo:
+
+        Example:
+
         """
         words = list()
         for child in self.children:
@@ -91,6 +132,21 @@ class TrieNode(object):
     def __get_all_words_with_prefix__(self, prefix):
         """
         Gets all words starting with the given prefix
+
+        Args:
+            prefix(:obj:'str'): The prefix
+
+        Returns:
+            words (:obj:`list` of :obj:'str'):
+                list of words stored in the Trie,
+                starting from the given prefix
+
+        Raises:
+
+        Todo:
+
+        Example:
+
         """
         # words = list()
         prefix_node = self.__get_prefix_node__(prefix, 0)
@@ -101,7 +157,22 @@ class TrieNode(object):
 
     def __get_prefix_node__(self, prefix, position):
         """
-        Gets all the words stored in the Trie
+        Returns the node containing the prefix, if there is such
+
+        Args:
+            prefix(:obj:'str'): The prefix
+
+        Returns:
+            words (:obj:`list` of :obj:'str'):
+                list of words stored in the Trie,
+                starting from the given prefix
+
+        Raises:
+
+        Todo:
+
+        Example:
+
         """
         if position == len(prefix):
             return self
