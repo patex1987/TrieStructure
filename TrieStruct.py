@@ -26,16 +26,13 @@ class Trie(object):
         self.children = []
         self.word = word
 
-    def insert_multiple_words(self, root_object, words, word_pos=0,
-                              string_pos=0):
+    def __insert__(self, word, string_pos=0):
         """
-        Inserts a collection of words into the Trie
+        Inserts a simple word into the Trie (internal method)
 
         Args:
-            words (:obj:`list` or :obj:'tuple' of :obj:`str`):
-                List or tuple of words
-            word_pos (int, Optional): position of the word in the
-                words collection
+            word (:obj:`str`):
+                word to insert
             string_pos (int, Optional): position of the character
                 in the current word
 
@@ -45,34 +42,43 @@ class Trie(object):
         Raises:
 
         Todo:
-            sending the root_object in the argument is a kind of forced
-            solution
+
+        Example:
+        """
+        current_char = word[string_pos]
+        if current_char not in self.__get_children_chars__():
+            self.children.append(Trie(current_char))
+        current_char_position = self.__find_char_pos_in_childs__(current_char)
+        if string_pos + 1 == len(word):
+            self.children[current_char_position].is_word = True
+            self.children[current_char_position].word = word
+        else:
+            self.children[current_char_position].__insert__(
+                word,
+                string_pos + 1)
+
+    def insert_multiple_words(self, words, string_pos=0):
+        """
+        Inserts a collection of words into the Trie
+
+        Args:
+            words (:obj:`list` or :obj:'tuple' of :obj:`str`):
+                List or tuple of words
+            string_pos (int, Optional): position of the character
+                in the current word
+
+        Returns:
+            None: this method doesnt return any value
+
+        Raises:
+
+        Todo:
 
         Example:
 
         """
-        word = words[word_pos]
-        current_char = word[string_pos]
-        if current_char not in self.__get_children_chars__():
-            self.children.append(Trie(current_char))
-        current_char_position = self.__find_char_pos_in_childs__(
-            current_char)
-        if string_pos + 1 == len(word):
-            self.children[current_char_position].is_word = True
-            self.children[current_char_position].word = word
-            if word_pos + 1 == len(words):
-                return
-            root_object.insert_multiple_words(
-                root_object,
-                words,
-                word_pos + 1,
-                0)
-        else:
-            self.children[current_char_position].insert_multiple_words(
-                root_object,
-                words,
-                word_pos,
-                string_pos + 1)
+        for word in words:
+            self.__insert__(word)
 
     def __find_char_pos_in_childs__(self, char):
         """
