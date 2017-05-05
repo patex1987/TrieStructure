@@ -19,12 +19,12 @@ trie = TrieStruct.Trie()
 ```
 Add a single word to the Trie:
 ```python
-trie.insert("0903127")
+trie.insert_multiple_words(trie, ["0903127"])
 ```
 Add collection of words to the Trie
 ```python
 words_to_insert = ["0902123456", "0904126345", "12345678", "12356", "26736"]
-trie.insert_multiple_words(words_to_insert)
+trie.insert_multiple_words(trie, words_to_insert)
 ```
 
 ## Development setup
